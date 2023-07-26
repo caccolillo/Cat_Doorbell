@@ -1,0 +1,480 @@
+
+*** Running vivado
+    with args -log bd_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_wrapper.tcl
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source bd_wrapper.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/caccolillo/Xilinx/Vivado/2022.2/data/ip'.
+Command: read_checkpoint -auto_incremental -incremental /home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.srcs/utils_1/imports/synth_1/bd_wrapper.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.srcs/utils_1/imports/synth_1/bd_wrapper.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top bd_wrapper -part xczu3eg-sbva484-1-i
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Device 21-403] Loading part xczu3eg-sbva484-1-i
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 2403436
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/caccolillo/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2919.258 ; gain = 232.832 ; free physical = 6372 ; free virtual = 22498
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3921.652; parent = 2923.230; children = 998.422
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'bd_wrapper' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/hdl/bd_wrapper.v:12]
+INFO: [Synth 8-6157] synthesizing module 'bd' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:12]
+INFO: [Synth 8-6157] synthesizing module 'bd_axi_bram_ctrl_0_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_axi_bram_ctrl_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_axi_bram_ctrl_0_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_axi_bram_ctrl_0_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'bd_axi_intc_0_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_axi_intc_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_axi_intc_0_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_axi_intc_0_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'bd_blk_mem_gen_0_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_blk_mem_gen_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_blk_mem_gen_0_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_blk_mem_gen_0_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'rsta_busy' of module 'bd_blk_mem_gen_0_0' is unconnected for instance 'blk_mem_gen_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:249]
+WARNING: [Synth 8-7071] port 'rstb_busy' of module 'bd_blk_mem_gen_0_0' is unconnected for instance 'blk_mem_gen_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:249]
+WARNING: [Synth 8-7023] instance 'blk_mem_gen_0' of module 'bd_blk_mem_gen_0_0' has 16 connections declared, but only 14 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:249]
+INFO: [Synth 8-6157] synthesizing module 'bd_ps8_0_axi_periph_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:536]
+INFO: [Synth 8-6157] synthesizing module 'm00_couplers_imp_DK7X3T' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:1780]
+INFO: [Synth 8-6157] synthesizing module 'bd_auto_ds_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_auto_ds_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'bd_auto_pc_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_pc_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_auto_pc_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_pc_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awprot' of module 'bd_auto_pc_0' is unconnected for instance 'auto_pc' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2131]
+WARNING: [Synth 8-7071] port 'm_axi_arprot' of module 'bd_auto_pc_0' is unconnected for instance 'auto_pc' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2131]
+WARNING: [Synth 8-7023] instance 'auto_pc' of module 'bd_auto_pc_0' has 56 connections declared, but only 54 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2131]
+INFO: [Synth 8-6155] done synthesizing module 'm00_couplers_imp_DK7X3T' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:1780]
+INFO: [Synth 8-6157] synthesizing module 'm01_couplers_imp_1BISKZA' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2188]
+INFO: [Synth 8-6157] synthesizing module 'bd_auto_ds_1' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_auto_ds_1' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_1_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awregion' of module 'bd_auto_ds_1' is unconnected for instance 'auto_ds' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2483]
+WARNING: [Synth 8-7071] port 'm_axi_awqos' of module 'bd_auto_ds_1' is unconnected for instance 'auto_ds' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2483]
+WARNING: [Synth 8-7071] port 'm_axi_arregion' of module 'bd_auto_ds_1' is unconnected for instance 'auto_ds' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2483]
+WARNING: [Synth 8-7071] port 'm_axi_arqos' of module 'bd_auto_ds_1' is unconnected for instance 'auto_ds' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2483]
+WARNING: [Synth 8-7023] instance 'auto_ds' of module 'bd_auto_ds_1' has 76 connections declared, but only 72 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2483]
+INFO: [Synth 8-6155] done synthesizing module 'm01_couplers_imp_1BISKZA' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2188]
+INFO: [Synth 8-6157] synthesizing module 'm02_couplers_imp_1PA2EVA' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2558]
+INFO: [Synth 8-6157] synthesizing module 'bd_auto_ds_2' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_2_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_auto_ds_2' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_ds_2_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'bd_auto_pc_1' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_pc_1_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_auto_pc_1' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_auto_pc_1_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awprot' of module 'bd_auto_pc_1' is unconnected for instance 'auto_pc' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2909]
+WARNING: [Synth 8-7071] port 'm_axi_arprot' of module 'bd_auto_pc_1' is unconnected for instance 'auto_pc' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2909]
+WARNING: [Synth 8-7023] instance 'auto_pc' of module 'bd_auto_pc_1' has 56 connections declared, but only 54 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2909]
+INFO: [Synth 8-6155] done synthesizing module 'm02_couplers_imp_1PA2EVA' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2558]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_17S3U0L' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2966]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_17S3U0L' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:2966]
+INFO: [Synth 8-6157] synthesizing module 's01_couplers_imp_1S6862' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:3252]
+INFO: [Synth 8-6155] done synthesizing module 's01_couplers_imp_1S6862' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:3252]
+INFO: [Synth 8-6157] synthesizing module 'bd_xbar_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_xbar_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_xbar_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_xbar_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'm_axi_awuser' of module 'bd_xbar_0' is unconnected for instance 'xbar' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:1697]
+WARNING: [Synth 8-7071] port 'm_axi_aruser' of module 'bd_xbar_0' is unconnected for instance 'xbar' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:1697]
+WARNING: [Synth 8-7023] instance 'xbar' of module 'bd_xbar_0' has 82 connections declared, but only 80 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:1697]
+INFO: [Synth 8-6155] done synthesizing module 'bd_ps8_0_axi_periph_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:536]
+INFO: [Synth 8-6157] synthesizing module 'bd_rst_ps8_0_100M_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_rst_ps8_0_100M_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_rst_ps8_0_100M_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_rst_ps8_0_100M_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'mb_reset' of module 'bd_rst_ps8_0_100M_0' is unconnected for instance 'rst_ps8_0_100M' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:420]
+WARNING: [Synth 8-7071] port 'bus_struct_reset' of module 'bd_rst_ps8_0_100M_0' is unconnected for instance 'rst_ps8_0_100M' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:420]
+WARNING: [Synth 8-7071] port 'peripheral_reset' of module 'bd_rst_ps8_0_100M_0' is unconnected for instance 'rst_ps8_0_100M' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:420]
+WARNING: [Synth 8-7071] port 'interconnect_aresetn' of module 'bd_rst_ps8_0_100M_0' is unconnected for instance 'rst_ps8_0_100M' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:420]
+WARNING: [Synth 8-7023] instance 'rst_ps8_0_100M' of module 'bd_rst_ps8_0_100M_0' has 10 connections declared, but only 6 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:420]
+INFO: [Synth 8-6157] synthesizing module 'bd_system_management_wiz_0_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_system_management_wiz_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_system_management_wiz_0_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_system_management_wiz_0_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'channel_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'busy_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'eoc_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'eos_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'ot_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'vccpsaux_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'vccpsintfp_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'vccpsintlp_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'vccaux_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'vccint_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'user_temp_alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7071] port 'alarm_out' of module 'bd_system_management_wiz_0_0' is unconnected for instance 'system_management_wiz_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+WARNING: [Synth 8-7023] instance 'system_management_wiz_0' of module 'bd_system_management_wiz_0_0' has 34 connections declared, but only 22 given [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:427]
+INFO: [Synth 8-6157] synthesizing module 'bd_zynq_ultra_ps_e_0_0' [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_zynq_ultra_ps_e_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_zynq_ultra_ps_e_0_0' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/.Xil/Vivado-2403405-caccolillo-OMEN-25L-Desktop-GT12-1xxx/realtime/bd_zynq_ultra_ps_e_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/synth/bd.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'bd_wrapper' (0#1) [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/hdl/bd_wrapper.v:12]
+WARNING: [Synth 8-7129] Port M_ACLK in module s01_couplers_imp_1S6862 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module s01_couplers_imp_1S6862 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_ACLK in module s01_couplers_imp_1S6862 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_ARESETN in module s01_couplers_imp_1S6862 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ACLK in module s00_couplers_imp_17S3U0L is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module s00_couplers_imp_17S3U0L is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_ACLK in module s00_couplers_imp_17S3U0L is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_ARESETN in module s00_couplers_imp_17S3U0L is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ACLK in module m02_couplers_imp_1PA2EVA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module m02_couplers_imp_1PA2EVA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ACLK in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[39] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[38] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[37] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[36] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[35] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[34] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[33] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[32] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[31] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[30] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[29] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[28] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[27] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[26] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[25] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[24] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[23] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[22] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[21] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[20] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[19] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[18] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[17] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[16] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[15] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[14] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[13] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[39] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[38] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[37] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[36] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[35] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[34] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[33] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[32] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[31] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[30] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[29] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[28] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[27] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[26] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[25] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[24] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[23] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[22] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[21] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[20] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[19] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[18] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[17] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[16] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[15] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[14] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[13] in module m01_couplers_imp_1BISKZA is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ACLK in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[39] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[38] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[37] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[36] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[35] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[34] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[33] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[32] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[31] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[30] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[29] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[28] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[27] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[26] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[25] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[24] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[23] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[22] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[21] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[20] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[19] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[18] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[17] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[16] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[15] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[14] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_araddr[13] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[39] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[38] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[37] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[36] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_awaddr[35] in module m00_couplers_imp_DK7X3T is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2996.195 ; gain = 309.770 ; free physical = 6448 ; free virtual = 22578
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 3994.621; parent = 2996.199; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 3014.008 ; gain = 327.582 ; free physical = 6446 ; free virtual = 22576
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4012.434; parent = 3014.012; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 3014.008 ; gain = 327.582 ; free physical = 6446 ; free virtual = 22576
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4012.434; parent = 3014.012; children = 998.422
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3014.008 ; gain = 0.000 ; free physical = 6442 ; free virtual = 22572
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_zynq_ultra_ps_e_0_0/bd_zynq_ultra_ps_e_0_0/bd_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'bd_i/zynq_ultra_ps_e_0'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_zynq_ultra_ps_e_0_0/bd_zynq_ultra_ps_e_0_0/bd_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'bd_i/zynq_ultra_ps_e_0'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_system_management_wiz_0_0/bd_system_management_wiz_0_0/bd_system_management_wiz_0_0_in_context.xdc] for cell 'bd_i/system_management_wiz_0'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_system_management_wiz_0_0/bd_system_management_wiz_0_0/bd_system_management_wiz_0_0_in_context.xdc] for cell 'bd_i/system_management_wiz_0'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_xbar_0/bd_xbar_0/bd_xbar_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/xbar'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_xbar_0/bd_xbar_0/bd_xbar_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/xbar'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_0/bd_auto_ds_0/bd_auto_ds_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m00_couplers/auto_ds'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_0/bd_auto_ds_0/bd_auto_ds_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m00_couplers/auto_ds'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_pc_0/bd_auto_pc_0/bd_auto_pc_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m00_couplers/auto_pc'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_pc_0/bd_auto_pc_0/bd_auto_pc_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m00_couplers/auto_pc'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_1/bd_auto_ds_1/bd_auto_ds_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m01_couplers/auto_ds'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_1/bd_auto_ds_1/bd_auto_ds_0_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m01_couplers/auto_ds'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_2/bd_auto_ds_2/bd_auto_ds_2_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m02_couplers/auto_ds'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_ds_2/bd_auto_ds_2/bd_auto_ds_2_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m02_couplers/auto_ds'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_pc_1/bd_auto_pc_1/bd_auto_pc_1_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m02_couplers/auto_pc'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_auto_pc_1/bd_auto_pc_1/bd_auto_pc_1_in_context.xdc] for cell 'bd_i/ps8_0_axi_periph/m02_couplers/auto_pc'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_rst_ps8_0_100M_0/bd_rst_ps8_0_100M_0/bd_rst_ps8_0_100M_0_in_context.xdc] for cell 'bd_i/rst_ps8_0_100M'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_rst_ps8_0_100M_0/bd_rst_ps8_0_100M_0/bd_rst_ps8_0_100M_0_in_context.xdc] for cell 'bd_i/rst_ps8_0_100M'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_axi_bram_ctrl_0_0/bd_axi_bram_ctrl_0_0/bd_axi_bram_ctrl_0_0_in_context.xdc] for cell 'bd_i/axi_bram_ctrl_0'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_axi_bram_ctrl_0_0/bd_axi_bram_ctrl_0_0/bd_axi_bram_ctrl_0_0_in_context.xdc] for cell 'bd_i/axi_bram_ctrl_0'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_blk_mem_gen_0_0/bd_blk_mem_gen_0_0/bd_blk_mem_gen_0_0_in_context.xdc] for cell 'bd_i/blk_mem_gen_0'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_blk_mem_gen_0_0/bd_blk_mem_gen_0_0/bd_blk_mem_gen_0_0_in_context.xdc] for cell 'bd_i/blk_mem_gen_0'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_axi_intc_0_0/bd_axi_intc_0_0/bd_axi_intc_0_0_in_context.xdc] for cell 'bd_i/axi_intc_0'
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.gen/sources_1/bd/bd/ip/bd_axi_intc_0_0/bd_axi_intc_0_0/bd_axi_intc_0_0_in_context.xdc] for cell 'bd_i/axi_intc_0'
+Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3089.914 ; gain = 0.000 ; free physical = 6356 ; free virtual = 22489
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3089.914 ; gain = 0.000 ; free physical = 6356 ; free virtual = 22489
+WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'bd_i/blk_mem_gen_0' at clock pin 'clka' is different from the actual clock period '10.000', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-11241] undeclared symbol 'REGCCE', assumed default net type 'wire' [/home/caccolillo/Xilinx/Vivado/2022.2/data/verilog/src/unimacro/BRAM_SINGLE_MACRO.v:2170]
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 3089.914 ; gain = 403.488 ; free physical = 6420 ; free virtual = 22554
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4056.324; parent = 3057.902; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu3eg-sbva484-1-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 3089.914 ; gain = 403.488 ; free physical = 6420 ; free virtual = 22554
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4056.324; parent = 3057.902; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/zynq_ultra_ps_e_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/system_management_wiz_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/xbar. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/m00_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/m00_couplers/auto_pc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/m01_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/m02_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph/m02_couplers/auto_pc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/ps8_0_axi_periph. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/rst_ps8_0_100M. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/axi_bram_ctrl_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/blk_mem_gen_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for bd_i/axi_intc_0. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 3089.914 ; gain = 403.488 ; free physical = 6420 ; free virtual = 22554
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4056.324; parent = 3057.902; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 3089.914 ; gain = 403.488 ; free physical = 6421 ; free virtual = 22556
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4056.324; parent = 3057.902; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 360 (col length:72)
+BRAMs: 432 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 3089.914 ; gain = 403.488 ; free physical = 6408 ; free virtual = 22548
+Synthesis current peak Physical Memory [PSS] (MB): peak = 2489.632; parent = 2237.855; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4056.324; parent = 3057.902; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 3530.984 ; gain = 844.559 ; free physical = 5841 ; free virtual = 21981
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3041.188; parent = 2789.520; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4529.410; parent = 3530.988; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 3530.984 ; gain = 844.559 ; free physical = 5842 ; free virtual = 21982
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3041.325; parent = 2789.656; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4529.410; parent = 3530.988; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 3551.023 ; gain = 864.598 ; free physical = 5835 ; free virtual = 21975
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3042.825; parent = 2791.156; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4549.449; parent = 3551.027; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.192; parent = 2791.523; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.216; parent = 2791.547; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.532; parent = 2791.863; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.595; parent = 2791.926; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.595; parent = 2791.926; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.595; parent = 2791.926; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------------+----------+
+|      |BlackBox name                |Instances |
++------+-----------------------------+----------+
+|1     |bd_xbar_0                    |         1|
+|2     |bd_auto_ds_0                 |         1|
+|3     |bd_auto_pc_0                 |         1|
+|4     |bd_auto_ds_1                 |         1|
+|5     |bd_auto_ds_2                 |         1|
+|6     |bd_auto_pc_1                 |         1|
+|7     |bd_axi_bram_ctrl_0_0         |         1|
+|8     |bd_axi_intc_0_0              |         1|
+|9     |bd_blk_mem_gen_0_0           |         1|
+|10    |bd_rst_ps8_0_100M_0          |         1|
+|11    |bd_system_management_wiz_0_0 |         1|
+|12    |bd_zynq_ultra_ps_e_0_0       |         1|
++------+-----------------------------+----------+
+
+Report Cell Usage: 
++------+---------------------------+------+
+|      |Cell                       |Count |
++------+---------------------------+------+
+|1     |bd_auto_ds                 |     3|
+|4     |bd_auto_pc                 |     2|
+|6     |bd_axi_bram_ctrl_0         |     1|
+|7     |bd_axi_intc_0              |     1|
+|8     |bd_blk_mem_gen_0           |     1|
+|9     |bd_rst_ps8_0_100M          |     1|
+|10    |bd_system_management_wiz_0 |     1|
+|11    |bd_xbar                    |     1|
+|12    |bd_zynq_ultra_ps_e_0       |     1|
++------+---------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 3556.961 ; gain = 870.535 ; free physical = 5832 ; free virtual = 21972
+Synthesis current peak Physical Memory [PSS] (MB): peak = 3043.626; parent = 2791.957; children = 251.776
+Synthesis current peak Virtual Memory [VSS] (MB): peak = 4555.387; parent = 3556.965; children = 998.422
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 11 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 3556.961 ; gain = 794.629 ; free physical = 5872 ; free virtual = 22012
+Synthesis Optimization Complete : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 3556.969 ; gain = 870.535 ; free physical = 5872 ; free virtual = 22012
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3556.969 ; gain = 0.000 ; free physical = 5973 ; free virtual = 22113
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3592.617 ; gain = 0.000 ; free physical = 5907 ; free virtual = 22048
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 69189a01
+INFO: [Common 17-83] Releasing license: Synthesis
+65 Infos, 137 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 3606.555 ; gain = 1774.621 ; free physical = 6111 ; free virtual = 22251
+INFO: [Common 17-1381] The checkpoint '/home/caccolillo/Documents/cat_doorbell/Cat_Doorbell/vivado/ultra96_basic_system/ultra96_basic_system.runs/synth_1/bd_wrapper.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file bd_wrapper_utilization_synth.rpt -pb bd_wrapper_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Jul 22 07:48:15 2023...

@@ -1,0 +1,16 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
+| Date              : Sat Jul 22 07:49:44 2023
+| Host              : caccolillo-OMEN-25L-Desktop-GT12-1xxx running 64-bit Ubuntu 22.04.2 LTS
+| Command           : report_bus_skew -warn_on_violation -file bd_wrapper_bus_skew_routed.rpt -pb bd_wrapper_bus_skew_routed.pb -rpx bd_wrapper_bus_skew_routed.rpx
+| Design            : bd_wrapper
+| Device            : xczu3eg-sbva484
+| Speed File        : -1  PRODUCTION 1.30 05-15-2022
+| Temperature Grade : I
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Bus Skew Report
+
+No bus skew constraints
+
