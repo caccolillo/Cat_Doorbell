@@ -7,3 +7,6 @@ clean :
 build : 
 	python3 ./python_utils/create_data.py
 	./prj.sh
+
+gui : 
+	$(shell /home/caccolillo/Documents/Xilinx/Vitis_HLS/2020.2/bin/vitis_hls)
