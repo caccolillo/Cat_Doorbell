@@ -4,6 +4,7 @@ import argparse
 import time
 import cv2
 import csv
+import subprocess
 
 #main function
 # define a video capture object
@@ -67,7 +68,7 @@ np_average_frame_1d = np_average_frame.reshape(-1)
 np.savetxt('average_frame.txt', np_average_frame_1d, delimiter=',', fmt='%d')
 
 
-
+subprocess.call(["mv *.txt ./python_utils"], shell=True)
 
 # closing all open windows
 cv2.destroyAllWindows()

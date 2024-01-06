@@ -1,0 +1,9 @@
+clean :
+	rm -f *.log
+	rm -f *.zip
+	rm -f ./python_utils/*.txt
+	rm -r ./img_averaging_prj
+
+build : 
+	python3 ./python_utils/create_data.py
+	./prj.sh
