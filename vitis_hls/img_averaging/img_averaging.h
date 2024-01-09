@@ -33,3 +33,6 @@ struct aligned_allocator {
     }
     void deallocate(T* p, std::size_t num) { free(p); }
 };
+
+void krnl_img_averaging(uint32_t* in1, uint32_t* in2, uint32_t* out, int scale_by_4, int size);
+

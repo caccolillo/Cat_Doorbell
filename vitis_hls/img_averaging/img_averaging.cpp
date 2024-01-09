@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <hls_stream.h>
 
-#define DATA_SIZE 4096
+#define DATA_SIZE 921600
 
 // TRIPCOUNT identifier
 const int c_size = DATA_SIZE;
