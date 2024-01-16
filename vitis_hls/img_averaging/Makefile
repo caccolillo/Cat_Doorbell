@@ -9,4 +9,4 @@ build :
 	./prj.sh
 
 gui : 
-	$(shell /home/caccolillo/Documents/Xilinx/Vitis_HLS/2020.2/bin/vitis_hls)
+	$(shell /home/caccolillo/Documents/Xilinx/Vitis_HLS/2022.2/bin/vitis_hls)
