@@ -1,6 +1,7 @@
 // Includes
 #include <stdint.h>
 #include <hls_stream.h>
+#include "img_averaging.h"
 
 #define DATA_SIZE 921600
 

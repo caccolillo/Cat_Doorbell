@@ -1,5 +1,5 @@
 //#include "img_averaging.h"
-
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,7 +7,32 @@ using namespace std;
 
 #define DATA_SIZE 921600
 
-extern 	void krnl_img_averaging(uint32_t* in1, uint32_t* in2, uint32_t* out, int scale_by_4, int size);
+extern "C" void krnl_img_averaging(uint32_t* in1, uint32_t* in2, uint32_t* out, int scale_by_4, int size);
+
+int load_data(const char *filename, uint32_t *frame){
+  int loop = 0; //loop counter
+  ssize_t nbytes; //number of characters hold in the line read from the input file
+  string line; //this will contain the data read from the file
+  //loads the arrays with the file contents
+
+  ifstream myfile (filename); //opening the file.
+  if(myfile.is_open()){ //if the file is open
+	while (!myfile.eof()){ //while the end of file is NOT reached
+	  getline (myfile,line); //get one line from the file
+	  nbytes = line.length();
+	  if(nbytes){
+		frame[loop] = stoi(line);
+		cout << frame[loop] << " ---  "<< nbytes << endl; //and output it
+		loop++;
+	  }
+	}
+	myfile.close(); //closing the file
+	cout << "File " << filename << " finished, closing it.";
+	return loop;
+  }
+  else cout << "Unable to open file"; //if the file is not open output
+  return -1;
+}
 
 //main program
 int main(void){
@@ -23,96 +48,19 @@ int main(void){
 
 
   int loop = 0; //loop counter
+  ssize_t nbytes;
   string line; //this will contain the data read from the file
 
 
 
   //loads the arrays with the file contents
-
-  //load frame1
-  loop = 0;
-  ifstream myfile ("frame1.txt"); //opening the file.
-  if (myfile.is_open()) //if the file is open
-  {
-      while (! myfile.eof() ) //while the end of file is NOT reached
-      {
-          getline (myfile,line); //get one line from the file
-          frame1[loop] = stoi(line);
-          cout << frame1[loop] << endl; //and output it
-          loop++;
-      }
-      myfile.close(); //closing the file
-  }
-  else cout << "Unable to open file"; //if the file is not open output
-
-  //load frame2
-  loop = 0;
-  ifstream myfile1 ("frame2.txt"); //opening the file.
-  if (myfile1.is_open()) //if the file is open
-  {
-      while (! myfile.eof() ) //while the end of file is NOT reached
-      {
-          getline (myfile1,line); //get one line from the file
-          frame2[loop] = stoi(line);
-          cout << frame2[loop] << endl; //and output it
-          loop++;
-      }
-      myfile1.close(); //closing the file
-  }
-  else cout << "Unable to open file"; //if the file is not open output
+  loop =  load_data("frame1.txt", frame1); //load frame 1
+  loop =  load_data("frame2.txt", frame2); //load frame 2
+  loop =  load_data("frame3.txt", frame3); //load frame 3
+  loop =  load_data("frame4.txt", frame4); //load frame 4
+  loop =  load_data("average_frame.txt", avg_frm); //load the average frame
 
 
-  //load frame3
-  loop = 0;
-  ifstream myfile2 ("frame3.txt"); //opening the file.
-  if (myfile2.is_open()) //if the file is open
-  {
-      while (! myfile2.eof() ) //while the end of file is NOT reached
-      {
-          getline (myfile2,line); //get one line from the file
-          frame3[loop] = stoi(line);
-          cout << frame3[loop] << endl; //and output it
-          loop++;
-      }
-      myfile2.close(); //closing the file
-  }
-  else cout << "Unable to open file"; //if the file is not open output
-
-  //load frame4
-  loop = 0;
-  ifstream myfile3 ("frame4.txt"); //opening the file.
-  if (myfile3.is_open()) //if the file is open
-  {
-      while (! myfile3.eof() ) //while the end of file is NOT reached
-      {
-          getline (myfile3,line); //get one line from the file
-          frame4[loop] = stoi(line);
-          cout << frame4[loop] << endl; //and output it
-          loop++;
-      }
-      myfile3.close(); //closing the file
-  }
-  else cout << "Unable to open file"; //if the file is not open output
-
-  //load avg_frm
-  loop = 0;
-  ifstream myfile4 ("average_frame.txt"); //opening the file.
-  if (myfile4.is_open()) //if the file is open
-  {
-      while (! myfile4.eof() ) //while the end of file is NOT reached
-      {
-          getline (myfile4,line); //get one line from the file
-          avg_frm[loop] = stoi(line);
-          cout << avg_frm[loop] << endl; //and output it
-          loop++;
-      }
-      myfile4.close(); //closing the file
-  }
-  else cout << "Unable to open file"; //if the file is not open output
-
-
-  system("PAUSE");
-  return 0;
 
   //invokes the UUT
   krnl_img_averaging(&frame1[0], &frame2[0], &tmp[0], 0, loop);
