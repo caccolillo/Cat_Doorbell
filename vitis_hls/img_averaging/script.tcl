@@ -17,4 +17,5 @@ source "./directives.tcl"
 csim_design
 csynth_design
 cosim_design
-export_design -rtl verilog -format xo
+config_export -format xo -output ./
+export_design -rtl verilog -format xo -output ./
