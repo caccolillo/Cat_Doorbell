@@ -60,7 +60,7 @@ extern "C" {
 	void krnl_img_averaging(uint32_t* in1, uint32_t* in2, uint32_t* out, int scale_by_4, int size) {
 		#pragma HLS INTERFACE m_axi port = in1 bundle = gmem0
 		#pragma HLS INTERFACE m_axi port = in2 bundle = gmem1
-		#pragma HLS INTERFACE m_axi port = out bundle = gmem0
+		#pragma HLS INTERFACE m_axi port = out bundle = gmem2
 
 		static hls::stream<uint32_t> in1_stream("input_stream_1");
 		static hls::stream<uint32_t> in2_stream("input_stream_2");
