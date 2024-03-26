@@ -371,6 +371,8 @@ proc create_root_design { parentCell } {
 
   # Create instance: smartconnect_0, and set properties
   set smartconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0 ]
+  set_property CONFIG.NUM_SI {3} $smartconnect_0
+
 
   # Create instance: system_management_wiz_0, and set properties
   set system_management_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_management_wiz:1.3 system_management_wiz_0 ]
@@ -974,6 +976,7 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_intf_net -intf_net axi_gpio_2_GPIO2 [get_bd_intf_ports bt_en_led] [get_bd_intf_pins axi_gpio_2/GPIO2]
   connect_bd_intf_net -intf_net krnl_img_averaging_0_m_axi_gmem0 [get_bd_intf_pins krnl_img_averaging_0/m_axi_gmem0] [get_bd_intf_pins smartconnect_0/S00_AXI]
   connect_bd_intf_net -intf_net krnl_img_averaging_0_m_axi_gmem1 [get_bd_intf_pins krnl_img_averaging_0/m_axi_gmem1] [get_bd_intf_pins smartconnect_0/S01_AXI]
+  connect_bd_intf_net -intf_net krnl_img_averaging_0_m_axi_gmem2 [get_bd_intf_pins krnl_img_averaging_0/m_axi_gmem2] [get_bd_intf_pins smartconnect_0/S02_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M00_AXI [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M01_AXI [get_bd_intf_pins axi_uart16550_0/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net ps8_0_axi_periph_M02_AXI [get_bd_intf_pins axi_uart16550_1/S_AXI] [get_bd_intf_pins ps8_0_axi_periph/M02_AXI]
@@ -1030,6 +1033,7 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   # Create address segments
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem0] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem1] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem2] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_DDR_LOW] -force
   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs PWM_w_Int_0/s00_axi/reg0] -force
   assign_bd_address -offset 0xA0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs PWM_w_Int_1/s00_axi/reg0] -force
   assign_bd_address -offset 0xA0070000 -range 0x00004000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs axi_bram_ctrl_0/S_AXI/Mem0] -force
@@ -1045,6 +1049,7 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   # Exclude Address Segments
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem0] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem1] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
+  exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces krnl_img_averaging_0/Data_m_axi_gmem2] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP2/HP0_LPS_OCM]
 
 
   # Restore current instance
