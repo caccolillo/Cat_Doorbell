@@ -37,9 +37,16 @@ make_wrapper -files [get_files $origin_dir/$_xil_proj_name_/$_xil_proj_name_.src
 #add it to the project sources
 add_files -norecurse $origin_dir/$_xil_proj_name_/$_xil_proj_name_.gen/sources_1/bd/u96v2_sbc_base/hdl/u96v2_sbc_base_wrapper.v
 
+#add the file constraints file to the project
+add_files -fileset constrs_1 -norecurse ./constraints.xdc
+
 #generates the bitstream
 launch_runs impl_1 -to_step write_bitstream -jobs 4
 wait_on_run impl_1
+
 #export hw definition file for Vitis
 write_hw_platform -fixed -include_bit -force -file $origin_dir/$_xil_proj_name_/bd_wrapper.xsa
+
+#exit the project
+exit 
 
