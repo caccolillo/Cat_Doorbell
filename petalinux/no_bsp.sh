@@ -6,6 +6,7 @@ rm ./project-spec/configs/config
 cp ../config ./project-spec/configs
 #cp ../system-user.dtsi ./project-spec/meta-user/recipes-bsp/device-tree/files
 cp ../petalinuxbsp.conf ./project-spec/meta-user/conf
+cp ../wired.network ./project-spec/configs/systemd-conf
 petalinux-build 
 petalinux-build --sdk
 petalinux-package --sysroot
