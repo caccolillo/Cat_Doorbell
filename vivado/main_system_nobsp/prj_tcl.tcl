@@ -35,6 +35,11 @@ set_property -name "sim.central_dir" -value "$proj_dir/${_xil_proj_name_}.ip_use
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 
+#add IP-repos
+update_compile_order -fileset sources_1
+set_property  ip_repo_paths  ../../ [current_project]
+update_ip_catalog
+
 #create the block design by executing the script
 source bd.tcl
 
