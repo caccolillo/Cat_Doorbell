@@ -69,8 +69,15 @@
 #define MAP_MASK (MAP_SIZE - 1)
 #define IMAGE_SIZE 921600
 
+#define IN1_BUF_ADDR 0x0d000000
+#define IN2_BUF_ADDR 0x0e000000
+#define OUT_BUF_ADDR 0x0f000000
+
+
+
+
 void start_core(void *mapped_dev_base){  //start the kernel
-	*((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL)) = 1;
+	*((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL)) = 1;
 }
 
 //void set_addr_inp1(void *mapped_dev_base, __u64 addr){ //set the starting address for input 1
@@ -85,42 +92,48 @@ void start_core(void *mapped_dev_base){  //start the kernel
 //  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA + 4)) = data;
 //}
 
-void set_addr_inp1(void *mapped_dev_base, __u64 addr){ //set the starting address for input 1
-  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA)) = addr;
+void set_addr_inp1(void *mapped_dev_base, __u32 addr){ //set the starting address for input 1
+  *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA)) = addr;
 }
 
-void set_addr_inp2(void *mapped_dev_base, __u64 addr){ //set the starting address for input 2
-//  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN2_DATA)) = addr;
-//  *((__u64 *)(mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN2_DATA)) = addr;
+void set_addr_inp2(void *mapped_dev_base, __u32 addr){ //set the starting address for input 2
+  *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN2_DATA)) = addr;
 }
 
-void set_addr_out(void *mapped_dev_base, __u64 addr){  //set the destination address for output
-  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_OUT_R_DATA)) = addr;
+void set_addr_out(void *mapped_dev_base, __u32 addr){  //set the destination address for output
+  *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_OUT_R_DATA)) = addr;
 }
 
 void set_size(void *mapped_dev_base, int img_size){  //set the size of the image to process
-  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_SIZE_DATA)) = img_size;
+  *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_SIZE_DATA)) = img_size;
 }
 
 void manage_scale_by_4(void *mapped_dev_base, int scale_flag){ //enables/disables the scaling of the result by 4
-  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_SCALE_BY_4_DATA)) = scale_flag;
+  *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_SCALE_BY_4_DATA)) = scale_flag;
 }
 
 int is_done(void *mapped_dev_base){ //returns the status of the done flag
   int ap_ctrl = 0;
 
-  ap_ctrl = *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL));
+  ap_ctrl = *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL));
   return (ap_ctrl >> 1) & 0x1;
 }
 
-void run_img_averaging(void *mapped_dev_base, int img_size, int scale_flag, __u64 addr_inp1, __u64 addr_inp2, __u64 addr_out){ //run a single iteration of the img_averaging kernel
+void run_img_averaging(void *mapped_dev_base, int img_size, int scale_flag, __u32 addr_inp1, __u32 addr_inp2, __u32 addr_out){ //run a single iteration of the img_averaging kernel
+  printf("Setting source address input image 1 \n");
   set_addr_inp1(mapped_dev_base, addr_inp1); //set the starting address for input 1
-  //set_addr_inp2(mapped_dev_base, addr_inp2); //set the starting address for input 2
+  printf("Setting destination address input image 2 \n");
+  set_addr_inp2(mapped_dev_base, addr_inp2); //set the starting address for input 2
+  printf("Setting destination address output image \n");
   set_addr_out(mapped_dev_base, addr_out);  //set the destination address for output
+  printf("Setting input images size \n");
   set_size(mapped_dev_base, img_size);  //set the size of the image to process
+  printf("Managing scale by four flag \n");
   manage_scale_by_4(mapped_dev_base, scale_flag); //enables/disables the scaling of the result by 4
+  printf("Starting the kernel \n");
   start_core(mapped_dev_base);  //start the kernel
   while (!is_done(mapped_dev_base)); //returns the status of the done flag
+  printf("Kernel done \n");
 }
 
 int main(){
@@ -129,22 +142,15 @@ int main(){
 	void *mapped_base, *mapped_dev_base;
 	off_t dev_base = XKRNL_IMG_AVERAGING_BASE_ADDRESS;
 
-	__u64 addr_inp1; //starting address input image 1
-	__u64 addr_inp2; //starting address input image 2
-	__u64 addr_out;  //destination address output image
+	__u32 addr_inp1; //starting address input image 1
+	__u32 addr_inp2; //starting address input image 2
+	__u32 addr_out;  //destination address output image
 	int img_size = IMAGE_SIZE; //specifies the image size in pixels
     int scale_flag; //0 = no scaling by 4, 1 = scaling by 4
 
     printf("Image averaging '' DRIVER '' \n");
 
-	//***********************************************************************
-    //Allocate memory buffers for input - output images
-    //***********************************************************************
-    addr_inp1 = malloc (sizeof (int)*img_size);
 
-    addr_inp2 = malloc (sizeof (int)*img_size);
-
-    addr_out = malloc (sizeof (int)*img_size);
 
 	//***********************************************************************
     //Open "/dev/mem"
@@ -162,8 +168,9 @@ int main(){
 	// page, but it may not be at the start of the page
 	//***********************************************************************
 
-	mapped_base = mmap(0, MAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base & ~MAP_MASK);
-    	if (mapped_base == (void *) -1) {
+//	mapped_base = mmap(0, MAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base & ~MAP_MASK);
+	mapped_base = mmap(0, 65535, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base);
+	if (mapped_base == (void *) -1) {
 		printf("Can't map the memory to user space.\n");
 		exit(0);
 	}
@@ -177,9 +184,44 @@ int main(){
 	mapped_dev_base = mapped_base + (dev_base & MAP_MASK);
 
 	//***********************************************************************
+    //Allocate memory buffers for input - output images
+    //***********************************************************************
+//    addr_inp1 = malloc (sizeof (int)*img_size);
+//
+//    addr_inp2 = malloc (sizeof (int)*img_size);
+//
+//    addr_out = malloc (sizeof (int)*img_size);
+
+    addr_inp1 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
+	if (addr_inp1 == (void *) -1) {
+	  printf("Can't map the memory ''IN1_BUF_ADDR'' to user space.\n");
+	  exit(0);
+    }
+	printf("Memory ''IN1_BUF_ADDR'' mapped at address %x \n", addr_inp1);
+
+    addr_inp2 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN2_BUF_ADDR);
+	if (addr_inp2 == (void *) -1) {
+	  printf("Can't map the memory ''IN2_BUF_ADDR'' to user space.\n");
+	  exit(0);
+    }
+	printf("Memory ''IN2_BUF_ADDR'' mapped at address %x \n", addr_inp2);
+
+	addr_out = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, OUT_BUF_ADDR);
+	if (addr_out == (void *) -1) {
+	  printf("Can't map the memory ''OUT_BUF_ADDR'' to user space.\n");
+	  exit(0);
+    }
+	printf("Memory ''OUT_BUF_ADDR'' mapped at address %x \n", addr_out);
+
+
+	//***********************************************************************
     //Manage the img_averaging HLS kernel
 	//***********************************************************************
  	printf("Running kernel \n", mapped_base);
+ 	addr_inp1 = IN1_BUF_ADDR;
+ 	addr_inp2 = IN2_BUF_ADDR;
+ 	addr_out = OUT_BUF_ADDR;
+
 	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
  	printf("Kernel done \n", mapped_base);
 
@@ -193,5 +235,7 @@ int main(){
 	}
 
 	close(memfd);
+
+ 	printf("Exiting \n", mapped_base);
     return 0;
 }
