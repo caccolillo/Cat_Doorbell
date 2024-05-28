@@ -165,10 +165,33 @@ int main(){
 	__u32 addr_out;  //destination address output image
 	int img_size = IMAGE_SIZE; //specifies the image size in pixels
     int scale_flag; //0 = no scaling by 4, 1 = scaling by 4
+	__u32 *inp1_array; //pointer to the array holding inp1
+	__u32 *inp2_array; //pointer to the array holding inp2
+	__u32 *out_array; //pointer to the array holding out
+
 
     printf("Image averaging '' DRIVER '' \n");
 
+	//***********************************************************************
+    //Allocate three memory buffers for inp1, inp2 and out
+    //***********************************************************************
+    inp1_array = (int*) malloc(IMAGE_SIZE * sizeof(int));
+    if (inp1_array == NULL) {
+        printf("Memory allocation failed for inp1_array!");
+		exit(0);
+    }
 
+    inp2_array = (int*) malloc(IMAGE_SIZE * sizeof(int));
+    if (inp2_array == NULL) {
+        printf("Memory allocation failed for inp2_array!");
+		exit(0);
+    }
+
+    out_array = (int*) malloc(IMAGE_SIZE * sizeof(int));
+    if (out_array == NULL) {
+        printf("Memory allocation failed for out_array!");
+		exit(0);
+    }
 
 	//***********************************************************************
     //Open "/dev/mem"
