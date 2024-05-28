@@ -91,7 +91,7 @@ int load_data(const char *filename, __u32 *frame){
   }
 
   fclose(fp);
-  return 0;
+  return count;
 }
 
 void start_core(void *mapped_dev_base){  //start the kernel
@@ -157,6 +157,7 @@ void run_img_averaging(void *mapped_dev_base, int img_size, int scale_flag, __u3
 int main(){
 
 	int memfd;
+	int num_pixels_loaded;
 	void *mapped_base, *mapped_dev_base;
 	off_t dev_base = XKRNL_IMG_AVERAGING_BASE_ADDRESS;
 
@@ -209,7 +210,6 @@ int main(){
 	// page, but it may not be at the start of the page
 	//***********************************************************************
 
-//	mapped_base = mmap(0, MAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base & ~MAP_MASK);
 	mapped_base = mmap(0, 65535, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base);
 	if (mapped_base == (void *) -1) {
 		printf("Can't map the memory to user space.\n");
@@ -227,11 +227,6 @@ int main(){
 	//***********************************************************************
     //Allocate memory buffers for input - output images
     //***********************************************************************
-//    addr_inp1 = malloc (sizeof (int)*img_size);
-//
-//    addr_inp2 = malloc (sizeof (int)*img_size);
-//
-//    addr_out = malloc (sizeof (int)*img_size);
 
     addr_inp1 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
 	if (addr_inp1 == (void *) -1) {
@@ -254,6 +249,20 @@ int main(){
     }
 	printf("Memory ''OUT_BUF_ADDR'' mapped at address %x \n", addr_out);
 
+	//***********************************************************************
+    //Initialize memory buffers for inp1 and inp2 with files content
+    //***********************************************************************
+	num_pixels_loaded =  load_data("frame1.txt", (__u32 *)(addr_inp1));
+    if(num_pixels_loaded != IMAGE_SIZE){
+  	  printf("Can't initialize ''IN1_BUF'' with ''frame1.txt''.\n");
+  	  exit(0);
+    }
+
+	num_pixels_loaded =  load_data("frame2.txt", (__u32 *)(addr_inp2));
+    if(num_pixels_loaded != IMAGE_SIZE){
+  	  printf("Can't initialize ''IN2_BUF'' with ''frame2.txt''.\n");
+  	  exit(0);
+    }
 
 	//***********************************************************************
     //Manage the img_averaging HLS kernel
