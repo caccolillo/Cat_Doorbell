@@ -74,7 +74,25 @@
 #define OUT_BUF_ADDR 0x0f000000
 
 
+//loads the matrix with the content loaded from the file
+//returns -1 in case or error, othervise it gives back the number of elements read from file and loaded in the matrix
+int load_data(const char *filename, __u32 *frame){
+  int count = 0;
 
+  FILE *fp = fopen(filename, "r"); //open the file in read mode
+  if (fp == NULL){
+    printf("Error: could not open file %s", filename);
+    return 1;
+  }
+
+  while(!feof(fp)){  //loop until the end of the file
+    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the
+    count++;
+  }
+
+  fclose(fp);
+  return 0;
+}
 
 void start_core(void *mapped_dev_base){  //start the kernel
 	*((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL)) = 1;
