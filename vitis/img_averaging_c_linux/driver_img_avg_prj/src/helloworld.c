@@ -75,7 +75,7 @@
 
 
 //loads the matrix with the content loaded from the file
-//returns -1 in case or error, othervise it gives back the number of elements read from file and loaded in the matrix
+//returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
 int load_data(const char *filename, __u32 *frame){
   int count = 0;
 
@@ -86,7 +86,7 @@ int load_data(const char *filename, __u32 *frame){
   }
 
   while(!feof(fp)){  //loop until the end of the file
-    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the
+    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the file
     count++;
   }
 
@@ -94,21 +94,30 @@ int load_data(const char *filename, __u32 *frame){
   return count;
 }
 
+//saves on a file the content of the matrix
+//returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
+int save_data(const char *filename, __u32 *frame, __u32 numpixels){
+  int count = 0;
+
+  FILE *fp = fopen(filename, "w"); //open the file in write mode
+  if (fp == NULL){
+    printf("Error: could not open file %s", filename);
+    return 1;
+  }
+
+  while(count < numpixels){  //loop until the end of the pixels
+    fprintf(fp, "%d \n", frame[count]); //store a pixel in the file
+    count++;
+  }
+
+  fclose(fp);
+  return count;
+}
+
+
 void start_core(void *mapped_dev_base){  //start the kernel
 	*((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_AP_CTRL)) = 1;
 }
-
-//void set_addr_inp1(void *mapped_dev_base, __u64 addr){ //set the starting address for input 1
-//  __u32 data;
-//
-//  //write the low part of the 64 bits address
-//  data = (__u32)(addr & 0x00000000ffffffff);
-//  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA)) = data;
-//
-//  //write the high part of the 64 bits address
-//  data = (__u32)((addr & 0xffffffff00000000)>>32);
-//  *((unsigned long *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA + 4)) = data;
-//}
 
 void set_addr_inp1(void *mapped_dev_base, __u32 addr){ //set the starting address for input 1
   *((__u32 *) (mapped_dev_base + XKRNL_IMG_AVERAGING_CONTROL_ADDR_IN1_DATA)) = addr;
@@ -265,16 +274,53 @@ int main(){
     }
 
 	//***********************************************************************
-    //Manage the img_averaging HLS kernel
+    //Manage the img_averaging HLS kernel for the first run
 	//***********************************************************************
- 	printf("Running kernel \n", mapped_base);
- 	addr_inp1 = IN1_BUF_ADDR;
- 	addr_inp2 = IN2_BUF_ADDR;
- 	addr_out = OUT_BUF_ADDR;
-
+ 	printf("Running kernel on ''frame1.txt'' and ''frame2.txt''\n", mapped_base);
 	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
- 	printf("Kernel done \n", mapped_base);
+ 	printf("Kernel done, produced output1 \n", mapped_base);
 
+	//***********************************************************************
+    //Initialize memory buffer for inp1 with files content
+    //***********************************************************************
+	num_pixels_loaded =  load_data("frame3.txt", (__u32 *)(addr_inp1));
+    if(num_pixels_loaded != IMAGE_SIZE){
+  	  printf("Can't initialize ''IN1_BUF'' with ''frame1.txt''.\n");
+  	  exit(0);
+    }
+
+	//***********************************************************************
+    //Manage the img_averaging HLS kernel for the second run
+	//***********************************************************************
+ 	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
+	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_out, addr_inp2); //run a single iteration of the img_averaging kernel
+ 	printf("Kernel done, produced output2 \n", mapped_base);
+
+	//***********************************************************************
+    //Initialize memory buffer for inp2 with files content
+    //***********************************************************************
+	num_pixels_loaded =  load_data("frame4.txt", (__u32 *)(addr_inp1));
+    if(num_pixels_loaded != IMAGE_SIZE){
+  	  printf("Can't initialize ''IN1_BUF'' with ''frame4.txt''.\n");
+  	  exit(0);
+    }
+
+	//***********************************************************************
+    //Manage the img_averaging HLS kernel for the second run
+	//***********************************************************************
+ 	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
+ 	scale_flag = 1; //introduce scaling by 4
+	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
+ 	printf("Kernel done, produced output4 \n", mapped_base);
+
+	//***********************************************************************
+    //save the final output image
+	//***********************************************************************
+	num_pixels_loaded =  save_data("outputframe.txt", (__u32 *)(addr_out), IMAGE_SIZE);
+    if(num_pixels_loaded != IMAGE_SIZE){
+  	  printf("Can't create ''outputframe.txt''.\n");
+  	  exit(0);
+    }
 	//***********************************************************************
 	// unmap the memory before exiting
 	//***********************************************************************
