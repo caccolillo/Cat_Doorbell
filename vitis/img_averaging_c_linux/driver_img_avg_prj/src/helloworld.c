@@ -69,15 +69,38 @@
 #define MAP_MASK (MAP_SIZE - 1)
 #define IMAGE_SIZE 921600
 
-#define IN1_BUF_ADDR 0x0d000000
-#define IN2_BUF_ADDR 0x0e000000
-#define OUT_BUF_ADDR 0x0f000000
+#define IN1_BUF_ADDR 0x70000000
+#define IN2_BUF_ADDR 0x72000000
+#define OUT_BUF_ADDR 0x74000000
 
+
+////loads the matrix with the content loaded from the file
+////returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
+//int load_data(const char *filename, __u32 *frame, __u32 numpixels){
+//  int count = 0;
+//
+//  FILE *fp = fopen(filename, "r"); //open the file in read mode
+//  if (fp == NULL){
+//    printf("Error: could not open file %s", filename);
+//    return 1;
+//  }
+//
+////  while(!feof(fp)){  //loop until the end of the file
+////    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the file
+//  while(count < numpixels){
+//    fscanf(fp, "%d", frame++); //read a row and interpret as an integer, store it in the file
+//	count++;
+//  }
+//
+//  fclose(fp);
+//  return count;
+//}
 
 //loads the matrix with the content loaded from the file
 //returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
-int load_data(const char *filename, __u32 *frame){
+int load_data(const char *filename, __u32 *frame, __u32 numpixels){
   int count = 0;
+  int value;
 
   FILE *fp = fopen(filename, "r"); //open the file in read mode
   if (fp == NULL){
@@ -85,19 +108,47 @@ int load_data(const char *filename, __u32 *frame){
     return 1;
   }
 
-  while(!feof(fp)){  //loop until the end of the file
-    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the file
-    count++;
+//  while(!feof(fp)){  //loop until the end of the file
+//    fscanf(fp, "%d", &frame[count]); //read a row and interpret as an integer, store it in the file
+  while(count < numpixels){
+	fscanf(fp, "%d", &value); //read a row and interpret as an integer, store it in the file
+	*(frame+count) = value;
+	if(count < 10){  //for debug purposes
+	  printf("Writing into address %x the value %d \n",frame+count, value);
+	  printf("value written = %d \n\n",	*(frame+count));
+	}
+	count++;
   }
 
   fclose(fp);
   return count;
 }
 
+////saves on a file the content of the matrix
+////returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
+//int save_data(const char *filename, __u32 *frame, __u32 numpixels){
+//  int count = 0;
+//
+//  FILE *fp = fopen(filename, "w"); //open the file in write mode
+//  if (fp == NULL){
+//    printf("Error: could not open file %s", filename);
+//    return 1;
+//  }
+//
+//  while(count < numpixels){  //loop until the end of the pixels
+//    fprintf(fp, "%d \n", frame[count]); //store a pixel in the file
+//    count++;
+//  }
+//
+//  fclose(fp);
+//  return count;
+//}
+
 //saves on a file the content of the matrix
 //returns -1 in case or error, otherwise it gives back the number of elements read from file and loaded in the matrix
 int save_data(const char *filename, __u32 *frame, __u32 numpixels){
   int count = 0;
+  int value;
 
   FILE *fp = fopen(filename, "w"); //open the file in write mode
   if (fp == NULL){
@@ -106,8 +157,12 @@ int save_data(const char *filename, __u32 *frame, __u32 numpixels){
   }
 
   while(count < numpixels){  //loop until the end of the pixels
-    fprintf(fp, "%d \n", frame[count]); //store a pixel in the file
-    count++;
+	value = *(frame+count);
+	if(count < 10){  //for debug purposes
+      fprintf(fp, "%d \n", value); //store a pixel in the file
+	  printf("Writing into file from address %x the value %d \n",frame+count, value);
+	}
+	count++;
   }
 
   fclose(fp);
@@ -170,9 +225,13 @@ int main(){
 	void *mapped_base, *mapped_dev_base;
 	off_t dev_base = XKRNL_IMG_AVERAGING_BASE_ADDRESS;
 
-	__u32 addr_inp1; //starting address input image 1
-	__u32 addr_inp2; //starting address input image 2
-	__u32 addr_out;  //destination address output image
+//	__u32 addr_inp1; //starting address input image 1
+//	__u32 addr_inp2; //starting address input image 2
+//	__u32 addr_out;  //destination address output image
+	__u32 *addr_inp1; //starting address input image 1
+	__u32 *addr_inp2; //starting address input image 2
+	__u32 *addr_out;  //destination address output image
+
 	int img_size = IMAGE_SIZE; //specifies the image size in pixels
     int scale_flag; //0 = no scaling by 4, 1 = scaling by 4
 	__u32 *inp1_array; //pointer to the array holding inp1
@@ -261,13 +320,20 @@ int main(){
 	//***********************************************************************
     //Initialize memory buffers for inp1 and inp2 with files content
     //***********************************************************************
-	num_pixels_loaded =  load_data("frame1.txt", (__u32 *)(addr_inp1));
+
+//	addr_inp1 = inp1_array; //mmapped arrays are not working
+//	addr_inp2 = inp2_array;
+//	addr_out = out_array;
+
+	//num_pixels_loaded =  load_data("frame1.txt", inp1_array);
+
+	num_pixels_loaded =  load_data("frame1.txt", addr_inp1, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't initialize ''IN1_BUF'' with ''frame1.txt''.\n");
   	  exit(0);
     }
 
-	num_pixels_loaded =  load_data("frame2.txt", (__u32 *)(addr_inp2));
+	num_pixels_loaded =  load_data("frame2.txt", addr_inp2, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't initialize ''IN2_BUF'' with ''frame2.txt''.\n");
   	  exit(0);
@@ -283,7 +349,7 @@ int main(){
 	//***********************************************************************
     //Initialize memory buffer for inp1 with files content
     //***********************************************************************
-	num_pixels_loaded =  load_data("frame3.txt", (__u32 *)(addr_inp1));
+	num_pixels_loaded =  load_data("frame3.txt", addr_inp1, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't initialize ''IN1_BUF'' with ''frame1.txt''.\n");
   	  exit(0);
@@ -299,7 +365,7 @@ int main(){
 	//***********************************************************************
     //Initialize memory buffer for inp2 with files content
     //***********************************************************************
-	num_pixels_loaded =  load_data("frame4.txt", (__u32 *)(addr_inp1));
+	num_pixels_loaded =  load_data("frame4.txt", addr_inp1, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't initialize ''IN1_BUF'' with ''frame4.txt''.\n");
   	  exit(0);
@@ -316,7 +382,7 @@ int main(){
 	//***********************************************************************
     //save the final output image
 	//***********************************************************************
-	num_pixels_loaded =  save_data("outputframe.txt", (__u32 *)(addr_out), IMAGE_SIZE);
+	num_pixels_loaded =  save_data("outputframe.txt", addr_out, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't create ''outputframe.txt''.\n");
   	  exit(0);
