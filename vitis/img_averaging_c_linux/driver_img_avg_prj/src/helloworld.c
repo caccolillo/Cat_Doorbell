@@ -67,7 +67,9 @@
 
 #define MAP_SIZE 4096UL
 #define MAP_MASK (MAP_SIZE - 1)
-#define IMAGE_SIZE 921600
+//#define IMAGE_SIZE 640*480*3//921600
+
+#define IMAGE_SIZE 960*1280*3//3686400
 
 #define IN1_BUF_ADDR 0x70000000
 #define IN2_BUF_ADDR 0x72000000
@@ -113,7 +115,7 @@ int load_data(const char *filename, __u32 *frame, __u32 numpixels){
   while(count < numpixels){
 	fscanf(fp, "%d", &value); //read a row and interpret as an integer, store it in the file
 	*(frame+count) = value;
-	if(count < 10){  //for debug purposes
+	if(count < 5 || count > (numpixels-5)){  //for debug purposes
 	  printf("Writing into address %x the value %d \n",frame+count, value);
 	  printf("value written = %d \n\n",	*(frame+count));
 	}
@@ -158,8 +160,8 @@ int save_data(const char *filename, __u32 *frame, __u32 numpixels){
 
   while(count < numpixels){  //loop until the end of the pixels
 	value = *(frame+count);
-	if(count < 10){  //for debug purposes
-      fprintf(fp, "%d \n", value); //store a pixel in the file
+    fprintf(fp, "%d \n", value); //store a pixel in the file
+	if(count < 5 || count > (numpixels-5)){  //for debug purposes
 	  printf("Writing into file from address %x the value %d \n",frame+count, value);
 	}
 	count++;
@@ -296,21 +298,21 @@ int main(){
     //Allocate memory buffers for input - output images
     //***********************************************************************
 
-    addr_inp1 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
+    addr_inp1 = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
 	if (addr_inp1 == (void *) -1) {
 	  printf("Can't map the memory ''IN1_BUF_ADDR'' to user space.\n");
 	  exit(0);
     }
 	printf("Memory ''IN1_BUF_ADDR'' mapped at address %x \n", addr_inp1);
 
-    addr_inp2 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN2_BUF_ADDR);
+    addr_inp2 = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN2_BUF_ADDR);
 	if (addr_inp2 == (void *) -1) {
 	  printf("Can't map the memory ''IN2_BUF_ADDR'' to user space.\n");
 	  exit(0);
     }
 	printf("Memory ''IN2_BUF_ADDR'' mapped at address %x \n", addr_inp2);
 
-	addr_out = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, OUT_BUF_ADDR);
+	addr_out = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, OUT_BUF_ADDR);
 	if (addr_out == (void *) -1) {
 	  printf("Can't map the memory ''OUT_BUF_ADDR'' to user space.\n");
 	  exit(0);
@@ -343,8 +345,10 @@ int main(){
     //Manage the img_averaging HLS kernel for the first run
 	//***********************************************************************
  	printf("Running kernel on ''frame1.txt'' and ''frame2.txt''\n", mapped_base);
-	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
+//	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output1 \n", mapped_base);
+
 
 	//***********************************************************************
     //Initialize memory buffer for inp1 with files content
@@ -359,8 +363,10 @@ int main(){
     //Manage the img_averaging HLS kernel for the second run
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
-	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_out, addr_inp2); //run a single iteration of the img_averaging kernel
- 	printf("Kernel done, produced output2 \n", mapped_base);
+	//run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_out, addr_inp2); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, OUT_BUF_ADDR, IN2_BUF_ADDR); //run a single iteration of the img_averaging kernel
+
+	printf("Kernel done, produced output2 \n", mapped_base);
 
 	//***********************************************************************
     //Initialize memory buffer for inp2 with files content
@@ -376,8 +382,11 @@ int main(){
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
  	scale_flag = 1; //introduce scaling by 4
-	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
+//	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output4 \n", mapped_base);
+
+
 
 	//***********************************************************************
     //save the final output image
