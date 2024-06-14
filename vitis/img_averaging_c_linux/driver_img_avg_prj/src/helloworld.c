@@ -227,9 +227,6 @@ int main(){
 	void *mapped_base, *mapped_dev_base;
 	off_t dev_base = XKRNL_IMG_AVERAGING_BASE_ADDRESS;
 
-//	__u32 addr_inp1; //starting address input image 1
-//	__u32 addr_inp2; //starting address input image 2
-//	__u32 addr_out;  //destination address output image
 	__u32 *addr_inp1; //starting address input image 1
 	__u32 *addr_inp2; //starting address input image 2
 	__u32 *addr_out;  //destination address output image
@@ -239,7 +236,6 @@ int main(){
 	__u32 *inp1_array; //pointer to the array holding inp1
 	__u32 *inp2_array; //pointer to the array holding inp2
 	__u32 *out_array; //pointer to the array holding out
-
 
     printf("Image averaging '' DRIVER '' \n");
 
@@ -267,7 +263,6 @@ int main(){
 	//***********************************************************************
     //Open "/dev/mem"
     //***********************************************************************
-
 	memfd = open("/dev/mem", O_RDWR | O_SYNC);
     	if (memfd == -1) {
 		printf("Can't open /dev/mem.\n");
@@ -279,7 +274,6 @@ int main(){
 	// Map one page of memory into user space such that the device is in that
 	// page, but it may not be at the start of the page
 	//***********************************************************************
-
 	mapped_base = mmap(0, 65535, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, dev_base);
 	if (mapped_base == (void *) -1) {
 		printf("Can't map the memory to user space.\n");
@@ -297,22 +291,21 @@ int main(){
 	//***********************************************************************
     //Allocate memory buffers for input - output images
     //***********************************************************************
-
-    addr_inp1 = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
+    addr_inp1 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN1_BUF_ADDR);
 	if (addr_inp1 == (void *) -1) {
 	  printf("Can't map the memory ''IN1_BUF_ADDR'' to user space.\n");
 	  exit(0);
     }
 	printf("Memory ''IN1_BUF_ADDR'' mapped at address %x \n", addr_inp1);
 
-    addr_inp2 = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN2_BUF_ADDR);
+    addr_inp2 = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IN2_BUF_ADDR);
 	if (addr_inp2 == (void *) -1) {
 	  printf("Can't map the memory ''IN2_BUF_ADDR'' to user space.\n");
 	  exit(0);
     }
 	printf("Memory ''IN2_BUF_ADDR'' mapped at address %x \n", addr_inp2);
 
-	addr_out = mmap(0, (sizeof (int)*img_size*3), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, OUT_BUF_ADDR);
+	addr_out = mmap(0, (sizeof (int)*img_size), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, OUT_BUF_ADDR);
 	if (addr_out == (void *) -1) {
 	  printf("Can't map the memory ''OUT_BUF_ADDR'' to user space.\n");
 	  exit(0);
@@ -322,13 +315,6 @@ int main(){
 	//***********************************************************************
     //Initialize memory buffers for inp1 and inp2 with files content
     //***********************************************************************
-
-//	addr_inp1 = inp1_array; //mmapped arrays are not working
-//	addr_inp2 = inp2_array;
-//	addr_out = out_array;
-
-	//num_pixels_loaded =  load_data("frame1.txt", inp1_array);
-
 	num_pixels_loaded =  load_data("frame1.txt", addr_inp1, IMAGE_SIZE);
     if(num_pixels_loaded != IMAGE_SIZE){
   	  printf("Can't initialize ''IN1_BUF'' with ''frame1.txt''.\n");
@@ -345,10 +331,8 @@ int main(){
     //Manage the img_averaging HLS kernel for the first run
 	//***********************************************************************
  	printf("Running kernel on ''frame1.txt'' and ''frame2.txt''\n", mapped_base);
-//	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
  	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output1 \n", mapped_base);
-
 
 	//***********************************************************************
     //Initialize memory buffer for inp1 with files content
@@ -363,9 +347,7 @@ int main(){
     //Manage the img_averaging HLS kernel for the second run
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
-	//run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_out, addr_inp2); //run a single iteration of the img_averaging kernel
  	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, OUT_BUF_ADDR, IN2_BUF_ADDR); //run a single iteration of the img_averaging kernel
-
 	printf("Kernel done, produced output2 \n", mapped_base);
 
 	//***********************************************************************
@@ -382,11 +364,8 @@ int main(){
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
  	scale_flag = 1; //introduce scaling by 4
-//	run_img_averaging(mapped_dev_base, img_size, scale_flag, addr_inp1, addr_inp2, addr_out); //run a single iteration of the img_averaging kernel
  	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output4 \n", mapped_base);
-
-
 
 	//***********************************************************************
     //save the final output image
@@ -396,15 +375,18 @@ int main(){
   	  printf("Can't create ''outputframe.txt''.\n");
   	  exit(0);
     }
+
 	//***********************************************************************
 	// unmap the memory before exiting
 	//***********************************************************************
-
 	if (munmap(mapped_base, MAP_SIZE) == -1) {
 		printf("Can't unmap memory from user space.\n");
 		exit(0);
 	}
 
+	//***********************************************************************
+    //Close "/dev/mem"
+    //***********************************************************************
 	close(memfd);
 
  	printf("Exiting \n", mapped_base);
