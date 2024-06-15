@@ -331,7 +331,7 @@ int main(){
     //Manage the img_averaging HLS kernel for the first run
 	//***********************************************************************
  	printf("Running kernel on ''frame1.txt'' and ''frame2.txt''\n", mapped_base);
- 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size*3, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output1 \n", mapped_base);
 
 	//***********************************************************************
@@ -347,7 +347,7 @@ int main(){
     //Manage the img_averaging HLS kernel for the second run
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
- 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, OUT_BUF_ADDR, IN2_BUF_ADDR); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size*3, scale_flag, IN1_BUF_ADDR, OUT_BUF_ADDR, IN2_BUF_ADDR); //run a single iteration of the img_averaging kernel
 	printf("Kernel done, produced output2 \n", mapped_base);
 
 	//***********************************************************************
@@ -364,7 +364,7 @@ int main(){
 	//***********************************************************************
  	printf("Running kernel on ''frame3.txt'' and output1 \n", mapped_base);
  	scale_flag = 1; //introduce scaling by 4
- 	run_img_averaging(mapped_dev_base, img_size, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
+ 	run_img_averaging(mapped_dev_base, img_size*3, scale_flag, IN1_BUF_ADDR, IN2_BUF_ADDR, OUT_BUF_ADDR); //run a single iteration of the img_averaging kernel
  	printf("Kernel done, produced output4 \n", mapped_base);
 
 	//***********************************************************************
