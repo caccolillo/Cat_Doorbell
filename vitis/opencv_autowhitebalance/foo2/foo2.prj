@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<hostApp:AcceleratedHostProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hostApp="http://www.xilinx.com/acceleration/hostApplication" name="foo2" location="/home/caccolillo/Documents/Cat_Doorbell/vitis/clahe_linux/foo2" platform="/home/caccolillo/Documents/Cat_Doorbell/vitis/clahe_linux/ultra96v2-platform/export/ultra96v2-platform/ultra96v2-platform.xpfm" platformUID="avnet.com:u96v2_sbc_base:u96v2_sbc_base:1.0(custom)" systemProject="foo2_system" sysConfig="ultra96v2-platform" cpu="linux_domain" cpuInstance="cortex-a53" os="linux" flow="EMBEDDED_ACCELERATION">
+  <configuration name="Emulation-SW" id="com.xilinx.ide.accel.config.sw_emu.aarch64.1811321271" dirty="true">
+    <configBuildOptions xsi:type="hostApp:HostApplicationOptions"/>
+  </configuration>
+  <configuration name="Emulation-HW" id="com.xilinx.ide.accel.config.hw_emu.aarch64.1569434374" dirty="true">
+    <configBuildOptions xsi:type="hostApp:HostApplicationOptions" target="hw_emu"/>
+  </configuration>
+  <configuration name="Hardware" id="com.xilinx.ide.accel.config.hw.aarch64.262105357">
+    <configBuildOptions xsi:type="hostApp:HostApplicationOptions" target="hw"/>
+    <lastBuildOptions xsi:type="hostApp:HostApplicationOptions" target="hw"/>
+  </configuration>
+</hostApp:AcceleratedHostProject>
