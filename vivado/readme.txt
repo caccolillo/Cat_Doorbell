@@ -11,4 +11,6 @@ The DPU project and the IP core, has been found at:
 https://www.xilinx.com/bin/public/openDownload?filename=DPUCZDX8G_VAI_v3.0.tar.gz
 
 download it and extract the archive.
-Then replace the trd_prj.tcl with the one in this repo and follow the tutorial.
+Then replace the trd_prj.tcl and trd_bd.tcl with the ones in this repo and follow the tutorial.
+The tutorial is part of the following repository:
+https://github.com/LogicTronixInc/Kria-Prophesee-Event-VitisAI/blob/main/Documentations/Detail-Design-Guide-01-Creating%20psee-ML-DPU%20Docker%20image.pdf
