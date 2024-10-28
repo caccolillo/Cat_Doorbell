@@ -118,7 +118,7 @@ CONFIG_system-zynqmp=y
 #
 # dnf
 #
-# CONFIG_dnf is not set
+CONFIG_dnf=y
 
 #
 # e2fsprogs 
@@ -4117,8 +4117,11 @@ CONFIG_Init-manager-systemd=y
 #
 # user packages 
 #
-# CONFIG_gpio-demo is not set
-# CONFIG_peekpoke is not set
+CONFIG_gpio-demo=y
+CONFIG_peekpoke=y
+CONFIG_vitis-ai-library=y
+# CONFIG_vitis-ai-library-dbg is not set
+CONFIG_vitis-ai-library-dev=y
 
 #
 # PetaLinux RootFS Settings
