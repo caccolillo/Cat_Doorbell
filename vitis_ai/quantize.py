@@ -29,7 +29,7 @@ quantizer = vitis_quantize.VitisQuantizer(float_model)
 
 print("**** started quantizer **** ")
 
-quantized_model = quantizer.quantize_model(calib_dataset=train_ds)
+quantized_model = quantizer.quantize_model(calib_dataset=train_ds,add_shape_info=True)
 
 print("**** quantized **** ")
 
