@@ -38,6 +38,7 @@ def preprocess_fn(image_path):
     cv2.imshow("Image", image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    image = image/255.0
     return image
 
 
