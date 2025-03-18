@@ -34,10 +34,7 @@ def preprocess_fn(image_path):
     return: numpy array
     '''
     image = cv2.imread(image_path, cv2.IMREAD_COLOR)  
-    image = image.reshape(180,180,1)
-    cv2.imshow("Image", image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    image = cv2.resize(image,(180,180))
     image = image/255.0
     return image
 
@@ -194,7 +191,7 @@ def main():
   # Standard Images
   app(args.image_dir,args.threads,args.model, args.results)
   # Custom Images
-  app(args.custom_dir,args.threads,args.model, args.custom_results)
+  #app(args.custom_dir,args.threads,args.model, args.custom_results)
 
 if __name__ == '__main__':
   main()
