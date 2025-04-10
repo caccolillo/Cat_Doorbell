@@ -38,7 +38,7 @@ from sklearn.model_selection import train_test_split
 
 
 NUM_EPOCHS = 5
-INIT_LR = 0.01
+INIT_LR = 0.02
 image_size = (180, 180)
 #batch_size = 128
 BATCH_SIZE = 32
@@ -233,7 +233,21 @@ def miniResNet(width, height, depth, classes, stages, filters, reg=0.0001, bnEps
                 return model
 
 
-
+def test_img(img_name,image_size):
+    img = keras.utils.load_img(img_name, target_size=image_size)
+    img_array = keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)  # Create batch axis
+    predictions = model.predict(img_array)
+    isacat = predictions[0, 1]
+    if(isacat>0.8): 
+        print("++++++++++++++++++++++++++++++++++++")
+        #print(predictions)
+        print("Image ",img_name," Is a cat at : ", isacat*100," % ") 
+        print("++++++++++++++++++++++++++++++++++++/n")
+        #isacat = predictions[0, 0]
+        #isadog = predictions[0, 1]
+        #print("Is a cat at :", isacat*100," % ") 
+        #print("Is a dog at :", isadog*100," % ") 
 
 #model = make_model(input_shape=image_size + (3,), num_classes=2)
 #keras.utils.plot_model(model, show_shapes=True)
@@ -241,8 +255,8 @@ def miniResNet(width, height, depth, classes, stages, filters, reg=0.0001, bnEps
 model = miniResNet(width=image_size[0],height=image_size[1],depth=3,classes=2,stages=(9, 9, 9),filters=(64, 64, 128, 256),reg=0.0005)
 keras.utils.plot_model(model, show_shapes=True)
 
-#epochs = 10
-epochs = 1
+epochs = 10
+#epochs = 1
 callbacks = [
     keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras"),
 ]
@@ -257,32 +271,47 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["a
 #    metrics=["accuracy"],
 #)
 
-model.fit(
+#model.fit(
+#    train_ds,
+#    epochs=epochs,
+#    callbacks=callbacks,
+#    validation_data=val_ds,
+#)
+
+model.fit_generator(
     train_ds,
+    steps_per_epoch=5,
     epochs=epochs,
     callbacks=callbacks,
     validation_data=val_ds,
+    validation_steps=10
 )
 
 #H = model.fit_generator(aug_generator,steps_per_epoch=len(x_train)//NUM_EPOCHS, epochs=NUM_EPOCHS,validation_data=validation_generator,validation_steps=len(x_valid)//NUM_EPOCHS,callbacks=callbacks_list,shuffle=True,verbose=2)
 
 img_name = "./PetImages/Cat/100.jpg"
-img = keras.utils.load_img(
-    img_name, target_size=image_size
-)
-img_array = keras.utils.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)  # Create batch axis
-predictions = model.predict(img_array)
-print("++++++++++++++++++++++++++++++++++++")
-print(predictions)
-print("++++++++++++++++++++++++++++++++++++")
-
+test_img(img_name,image_size)
 
 #PetImages/Cat/cat_1.jpg
+img_name = "./PetImages/Cat/cat_1.jpg"
+test_img(img_name,image_size)
 
+img_name = "./PetImages/Cat/cat_2.jpg"
+test_img(img_name,image_size)
 
+img_name = "./PetImages/Cat/cat_3.jpg"
+test_img(img_name,image_size)
 
+img_name = "./PetImages/Cat/cat_4.jpg"
+test_img(img_name,image_size)
 
+img_name = "./PetImages/Cat/cat_5.jpg"
+test_img(img_name,image_size)
+
+directory = './PetImages/Cat/'
+for filename in os.listdir(directory):
+    filename = r"{}{}".format(directory,filename)
+    test_img(filename,image_size)
 
 #score = float(predictions[0])
 #print(f"This image is {100 * (1 - score):.2f}% cat and {100 * score:.2f}% dog.")
