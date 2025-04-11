@@ -35,12 +35,58 @@ from tensorflow.keras.optimizers            import SGD
 from tensorflow.keras.callbacks             import ModelCheckpoint, TensorBoard, LearningRateScheduler
 import numpy as np
 from sklearn.model_selection import train_test_split
+import glob
+import os
+import tensorflow as tf
+from tensorflow.io import read_file, write_file
+from tensorflow.image import decode_image
+
+
+
+#detect invalid images in the dataset and delete them
+should_rewrite_image = True # set to true if you are getting Corrupt Data error
+num_skipped = 0
+for folder_name in ("Cat", "Dog"):
+    folder_path = os.path.join('./PetImages', folder_name)
+    for fname in os.listdir(folder_path):
+        fpath = os.path.join(folder_path, fname)
+        is_jfif = True
+        should_remove = False
+        
+        with open(fpath, "rb") as fobj:
+            is_jfif = tf.compat.as_bytes("JFIF") in fobj.peek(10)
+            
+        try:
+            img = read_file(fpath)
+            if not tf.io.is_jpeg(img):
+                should_remove = True
+                
+            img = decode_image(img)
+
+            if img.ndim != 3:
+                should_remove = True
+
+        except Exception as e:
+            should_remove = True
+        
+        if (not is_jfif) or should_remove:
+            num_skipped += 1
+            # Delete corrupted image
+            os.remove(fpath)
+        elif should_rewrite_image:
+            tmp = tf.io.encode_jpeg(img)
+            write_file(fpath, tmp)
+
+print("Deleted %d images" % num_skipped)
+
+
+
+
 
 
 NUM_EPOCHS = 5
-INIT_LR = 0.02
+INIT_LR = 0.05
 image_size = (180, 180)
-#batch_size = 128
 BATCH_SIZE = 32
 
 weights = "./"
@@ -239,24 +285,26 @@ def test_img(img_name,image_size):
     img_array = tf.expand_dims(img_array, 0)  # Create batch axis
     predictions = model.predict(img_array)
     isacat = predictions[0, 1]
-    if(isacat>0.8): 
+    isacat_flag = 0
+    if(isacat>0.7): 
         print("++++++++++++++++++++++++++++++++++++")
         #print(predictions)
         print("Image ",img_name," Is a cat at : ", isacat*100," % ") 
         print("++++++++++++++++++++++++++++++++++++/n")
+        isacat_flag = 1
         #isacat = predictions[0, 0]
         #isadog = predictions[0, 1]
         #print("Is a cat at :", isacat*100," % ") 
         #print("Is a dog at :", isadog*100," % ") 
+    return isacat_flag    
 
-#model = make_model(input_shape=image_size + (3,), num_classes=2)
-#keras.utils.plot_model(model, show_shapes=True)
 
 model = miniResNet(width=image_size[0],height=image_size[1],depth=3,classes=2,stages=(9, 9, 9),filters=(64, 64, 128, 256),reg=0.0005)
 keras.utils.plot_model(model, show_shapes=True)
+model.summary()
 
-epochs = 10
-#epochs = 1
+#epochs = 10
+epochs = 1
 callbacks = [
     keras.callbacks.ModelCheckpoint("save_at_{epoch}.keras"),
 ]
@@ -264,65 +312,34 @@ callbacks = [
 opt = SGD(lr=INIT_LR, momentum=0.9)
 model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
-
-#model.compile(
-#    optimizer=keras.optimizers.Adam(1e-3),
-#    loss="binary_crossentropy",
-#    metrics=["accuracy"],
-#)
-
-#model.fit(
-#    train_ds,
-#    epochs=epochs,
-#    callbacks=callbacks,
-#    validation_data=val_ds,
-#)
-
-model.fit_generator(
-    train_ds,
-    steps_per_epoch=5,
-    epochs=epochs,
-    callbacks=callbacks,
-    validation_data=val_ds,
-    validation_steps=10
+model.fit(
+   train_ds,
+   epochs=epochs,
+   callbacks=callbacks,
+   validation_data=val_ds,
 )
 
-#H = model.fit_generator(aug_generator,steps_per_epoch=len(x_train)//NUM_EPOCHS, epochs=NUM_EPOCHS,validation_data=validation_generator,validation_steps=len(x_valid)//NUM_EPOCHS,callbacks=callbacks_list,shuffle=True,verbose=2)
+input("Training completed. Press Enter to continue...")
 
-img_name = "./PetImages/Cat/100.jpg"
-test_img(img_name,image_size)
+isacat_flag = 0
+numimages = 0
+numcats = 0
 
-#PetImages/Cat/cat_1.jpg
-img_name = "./PetImages/Cat/cat_1.jpg"
-test_img(img_name,image_size)
-
-img_name = "./PetImages/Cat/cat_2.jpg"
-test_img(img_name,image_size)
-
-img_name = "./PetImages/Cat/cat_3.jpg"
-test_img(img_name,image_size)
-
-img_name = "./PetImages/Cat/cat_4.jpg"
-test_img(img_name,image_size)
-
-img_name = "./PetImages/Cat/cat_5.jpg"
-test_img(img_name,image_size)
 
 directory = './PetImages/Cat/'
 for filename in os.listdir(directory):
     filename = r"{}{}".format(directory,filename)
-    test_img(filename,image_size)
+    isacat_flag = test_img(filename,image_size)
+    numimages = numimages + 1
+    if(isacat_flag==1): 
+      numcats = numcats + 1
+print("On ",numimages," ",numcats," were cats ")
 
-#score = float(predictions[0])
-#print(f"This image is {100 * (1 - score):.2f}% cat and {100 * score:.2f}% dog.")
+input("Testing completed. Press Enter to continue...")
 
 # save trained weights
 WEIGHTS_FINAL = 'model_final.h5'
 model.save(WEIGHTS_FINAL)
-
-
-
-
 
 from tensorflow_model_optimization.quantization.keras import vitis_quantize
 # do quantization
